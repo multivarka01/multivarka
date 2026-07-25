@@ -1,74 +1,185 @@
 <!doctype html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>MULTIVARKA</title>
-    <meta name="description" content="multivarka socials">
-    <meta name="keywords" content="MULTIVARKA, мультиварка, themultivarka, multivarka">
-    <meta name="author" content="Multivarka">
+    <meta name="description" content="Themultivarka socials">
+    <meta name="keywords" content="multivarka, themultivarka">
+    <meta name="author" content="Themultivarka">
+    <meta name="theme-color" content="#202020">
 
     <meta property="og:title" content="MULTIVARKA">
-    <meta property="og:description" content="multivarka socials">
-    <meta property="og:image" content="/banner.webp">
-    <meta property="og:url" content="https://multivarka.com">
+    <meta property="og:description" content="projects and social media links.">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MULTIVARKA">
+    <meta property="og:locale" content="ru_RU">
+
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="/banner.webp">
+    <meta name="twitter:title" content="MULTIVARKA">
+    <meta name="twitter:description" content="projects and social media links.">
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<style>
-        :root{--bg:#000;--text:#fff;--steam:#66c0f4;--tg:#2ca5e0;--twitch:#9146ff;--yt:#f00}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
-        .wrapper{display:flex;gap:60px;align-items:center}
-        .container{text-align:center}
-        h1{font-size:4rem;margin-bottom:0.5rem;letter-spacing:2px}
-        p{font-size:1rem;color:#888;margin-bottom:2rem;text-transform:uppercase;letter-spacing:1px}
-        .social{display:flex;gap:2rem;justify-content:center;margin-bottom:3rem}
-        .social a{font-size:2.5rem;color:var(--text);transition:.1s}
-        .social a:hover{transform:scale(1.15)}
-        .social a[title=Telegram]:hover{color:var(--tg)}
-        .social a[title=YouTube]:hover{color:var(--yt)}
-        .social a[title=Twitch]:hover{color:var(--twitch)}
-        .social a[title=Steam]:hover{color:var(--steam)}
-        
-        .projects-title{font-size:0.8rem;color:#444;text-transform:uppercase;letter-spacing:3px;margin-bottom:1.5rem}
-        .projects{display:flex;gap:1.5rem;justify-content:center;align-items:center}
-        .projects a img{width:99px;height:99px;opacity:0.6;transition:.2s;filter:grayscale(1) invert(1)}
-        .projects a[title="Kapitanych"] img,
-        .projects a[title="Andryha"] img {
-            width:70px;
-            height:70px;
-            border-radius:50%;
-            filter:none;
-        }
-        .projects a:hover img{opacity:1;transform:translateY(-3px);filter:none}
 
-        @media(max-width:900px){.wrapper{flex-direction:column;padding:20px}}
+    <style>
+        @font-face {
+            font-family: 'Handjet Circle Double';
+            font-weight: 100 900;
+            font-display: swap;
+            src: url('/static/HandjetCircleDouble.woff2') format('woff2');
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #202020;
+            color: #EBEBEB;
+            font-family: 'Handjet Circle Double', 'Segoe UI', system-ui;
+            font-variation-settings: 'ELGR' 2, 'ELSH' 8;
+            padding: 48px 32px;
+            text-align: center
+        }
+
+        ::selection {
+            background: rgba(120, 157, 42, .4)
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 800;
+            font-size: 84px;
+            line-height: .88;
+            letter-spacing: 1px;
+            color: #fff
+        }
+
+        .meta {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px
+        }
+
+        .meta span {
+            font-weight: 600;
+            font-size: 22px
+        }
+
+        .name {
+            color: #EF9282
+        }
+
+        .age {
+            color: #AAA
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #696969
+        }
+
+        .spoiler {
+            display: inline-block;
+            background: #444;
+            color: #444;      
+            padding: 2px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s, background 0.2s;
+        }
+        .spoiler.revealed {
+            color: inherit;      
+            background: rgba(255,255,255,0.08);
+        }
+
+        .socials {
+            margin-top: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px
+        }
+
+        .socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: #252525;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+            color: #EBEBEB;
+            font-size: 24px;
+            text-decoration: none;
+            transition: all 180ms cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .socials a:hover {
+            transform: translateY(-2px)
+        }
+
+        .twitch:hover {
+            color: #9146FF;
+            box-shadow: inset 0 0 0 1px #9146FF;
+            background: rgba(145, 70, 255, .18)
+        }
+
+        .telegram:hover {
+            color: #2CA5E0;
+            box-shadow: inset 0 0 0 1px #26A5E4;
+            background: rgba(38, 165, 228, .18)
+        }
+
+        .youtube:hover {
+            color: #F00;
+            box-shadow: inset 0 0 0 1px #F00;
+            background: rgba(255, 0, 0, .16)
+        }
+
+        .steam:hover {
+            color: #66C0F4;
+            box-shadow: inset 0 0 0 1px #66C0F4;
+            background: rgba(102, 192, 244, .18)
+        }
+
+        .github:hover {
+            color: #fff;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .55);
+            background: rgba(255, 255, 255, .1)
+        }
     </style>
 </head>
-<body>
-    <div class="wrapper">
-        <div class="container">
-            <h1>MULTIVARKA</h1>
-            <div class="social">
-                <a href="https://www.twitch.tv/themultivarka" target="_blank" title="Twitch"><i class="fab fa-twitch"></i></a>
-                <a href="https://t.me/multicooker01" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-                <a href="https://www.youtube.com/@themultivarka" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://steamcommunity.com/profiles/76561199707898172/" target="_blank" title="Steam"><i class="fab fa-steam"></i></a>
-            </div>
 
-            <div class="projects-title">My Projects</div>
-            <div class="projects">
-                <a href="https://twir.app/s/kapitanych" target="_blank" title="Kapitanych"><img src="https://raw.githubusercontent.com/multivarka01/multivarka/main/kapianych.png" alt="Kapitanych"></a>
-                <a href="https://twir.app/s/andryha" target="_blank" title="Andryha"><img src="https://raw.githubusercontent.com/multivarka01/multivarka/main/andryha.png" alt="Andryha"></a>
-            </div>
-        </div>
-        <div style="width:360px;max-width:100%">
-            <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="multicooker01/995" data-width="100%" data-dark="1" data-color="F646A4"></script>
-        </div>
+<body>
+    <h1>MULTIVARKA</h1>
+    <div class="meta">
+        <span class="name">Themultivarka</span>
+        <span class="dot"></span>
+        <span class="age">
+            <span class="spoiler" onclick="this.classList.toggle('revealed')">67</span> лет
+        </span>
+    </div>
+
+    <div class="socials">
+        <a class="twitch" href="https://twitch.tv/themultivarka" target="_blank" rel="noopener" title="Twitch"><i class="fab fa-twitch"></i></a>
+        <a class="telegram" href="https://t.me/multicooker" target="_blank" rel="noopener" title="Telegram"><i class="fab fa-telegram"></i></a>
+        <a class="youtube" href="https://youtube.com/@themultivarka" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a class="steam" href="https://steamcommunity.com" target="_blank" rel="noopener" title="Steam"><i class="fab fa-steam"></i></a>
+        <a class="github" href="https://github.com/multivarka01" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
     </div>
 </body>
 </html>
