@@ -18,8 +18,8 @@
     <meta name="twitter:title" content="MULTIVARKA">
     <meta name="twitter:description" content="projects and social media links.">
 
-    <link rel="icon" href="/static/favicon.png" type="image/png">
-    <link rel="preload" href="/static/HandjetCircleDouble.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="static/favicon.png" type="image/png">
+    <link rel="preload" href="static/HandjetCircleDouble.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
@@ -27,7 +27,7 @@
             font-family: 'Handjet Circle Double';
             font-weight: 100 900;
             font-display: swap;
-            src: url('/static/HandjetCircleDouble.woff2') format('woff2');
+            src: url('static/HandjetCircleDouble.woff2') format('woff2');
         }
 
         :root {
@@ -69,6 +69,7 @@
             overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
         }
 
+        /* ---------- фон ---------- */
         .glow {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             background:
@@ -82,6 +83,7 @@
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
 
+        /* уголки как на лого */
         .corner {
             position: fixed; width: 64px; height: 64px; z-index: 0; pointer-events: none;
             border: 0 solid var(--line);
@@ -104,6 +106,7 @@
             opacity: 0; animation: px-float var(--d, 9s) var(--delay, 0s) ease-in-out infinite;
         }
 
+        /* ---------- сцена ---------- */
         .stage {
             position: relative; z-index: 1;
             display: flex; flex-direction: column; align-items: center;
@@ -241,9 +244,9 @@
         <h1 class="sr-only">MULTIVARKA</h1>
 
         <div class="plus-wrap" id="plusWrap">
-            <img class="plus" id="plus" src="/static/logo-plus.png" alt="" width="450" height="420" decoding="async" fetchpriority="high">
+            <img class="plus" id="plus" src="static/logo-plus.png" alt="" width="450" height="420" decoding="async" fetchpriority="high">
         </div>
-        <img class="word" src="/static/logo-word.png" alt="MVRK" width="920" height="210" decoding="async">
+        <img class="word" src="static/logo-word.png" alt="MVRK" width="920" height="210" decoding="async">
 
         <div class="meta">
             <span class="name">Themultivarka</span>
@@ -267,12 +270,14 @@
             var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
             var root = document.documentElement;
 
+            // спойлер возраста
             var sp = document.querySelector('.spoiler');
             sp.addEventListener('click', function () {
                 sp.classList.toggle('revealed');
                 sp.setAttribute('aria-label', sp.classList.contains('revealed') ? 'Скрыть возраст' : 'Показать возраст');
             });
 
+            // пиксели-искры как на лого
             var box = document.getElementById('pixels');
             if (!reduce) {
                 for (var i = 0; i < 14; i++) {
@@ -291,6 +296,7 @@
 
             if (reduce) return;
 
+            // свечение за курсором + наклон плюса
             var plus = document.getElementById('plus');
             var wrap = document.getElementById('plusWrap');
             var raf = 0, tx = 0, ty = 0, px = 0, py = 0;
