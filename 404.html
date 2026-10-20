@@ -2,10 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <title>404 — Страница не найдена</title>
-    <meta name="theme-color" content="#202020">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#050409">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/static/favicon.png" type="image/png">
     <style>
         @font-face {
             font-family: 'Handjet Circle Double';
@@ -14,71 +15,255 @@
             src: url('/static/HandjetCircleDouble.woff2') format('woff2');
         }
 
-        * {
-            box-sizing: border-box;
+        :root {
+            --bg: #050409; --ink: #e9e6f5; --mute: #8d88a8; --violet: #5b2eff; --soft: #b7a6ff;
+            --ease: cubic-bezier(.2, .7, .2, 1);
+            --mx: 50%; --my: 40%;
         }
-
+        * { box-sizing: border-box }
+        html, body { height: 100% }
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #202020;
-            color: #EBEBEB;
-            font-family: 'Handjet Circle Double', 'Segoe UI', system-ui;
+            margin: 0; min-height: 100svh; display: grid; place-items: center; overflow: hidden;
+            padding: 32px 20px; text-align: center; color: var(--ink);
+            background:
+                radial-gradient(480px circle at var(--mx) var(--my), rgba(91,46,255,.24), transparent 70%),
+                var(--bg);
+            font-family: 'Handjet Circle Double', 'Segoe UI', system-ui, sans-serif;
             font-variation-settings: 'ELGR' 2, 'ELSH' 8;
-            padding: 48px 32px;
-            text-align: center;
+        }
+        ::selection { background: rgba(91,46,255,.4) }
+        :focus-visible { outline: 2px solid #9b82ff; outline-offset: 4px }
+
+        .grain {
+            position: fixed; inset: 0; pointer-events: none; opacity: .05;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+        /* лёгкие «строки развёртки» */
+        .scan {
+            position: fixed; inset: 0; pointer-events: none; opacity: .35;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px);
+            animation: scan 8s linear infinite;
         }
 
-        ::selection {
-            background: rgba(120, 157, 42, .4);
+        .stage { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center }
+
+        /* ---- 4 + плюс + 4 ---- */
+        .code {
+            display: flex; align-items: center; justify-content: center; gap: clamp(2px, 1.5vw, 14px);
+            font-weight: 800; font-size: clamp(96px, 26vw, 190px); line-height: 1; letter-spacing: 2px;
+            animation: rise .8s var(--ease) both;
+        }
+        .digit { position: relative; color: var(--soft); text-shadow: 0 0 40px rgba(91,46,255,.55) }
+        .digit::before, .digit::after {
+            content: attr(data-t); position: absolute; inset: 0; pointer-events: none; opacity: 0;
+        }
+        .digit::before { color: #ff2b6a; mix-blend-mode: screen; animation: glitch-a 3.6s 1.2s infinite }
+        .digit::after  { color: #2cd5ff; mix-blend-mode: screen; animation: glitch-b 3.6s 1.2s infinite }
+
+        .zero {
+            all: unset; cursor: pointer; display: block; position: relative;
+            width: clamp(78px, 20vw, 150px); perspective: 700px; -webkit-tap-highlight-color: transparent;
+        }
+        .zero img {
+            display: block; width: 100%; height: auto; mix-blend-mode: lighten; user-select: none; -webkit-user-drag: none;
+            transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(var(--rot, 0deg)) scale(var(--sc, 1));
+            transition: transform .3s var(--ease);
+            filter: drop-shadow(0 0 28px rgba(91,46,255,.45));
+            animation: wobble 5s 1s ease-in-out infinite;
+        }
+        .zero:hover img { --sc: 1.08 }
+        .zero:active img { --sc: .9 }
+
+        .msg {
+            min-height: 1.3em; margin: 14px 0 0; font-weight: 600; font-size: clamp(22px, 5vw, 30px); color: var(--mute);
+            animation: rise .8s .15s var(--ease) both;
+        }
+        .msg::after {
+            content: ''; display: inline-block; width: .5em; height: 1em; margin-left: 4px; vertical-align: -.12em;
+            background: var(--violet); animation: blink 1s steps(1) infinite;
         }
 
-        h1 {
-            font-weight: 800;
-            font-size: 120px;
-            line-height: 1;
-            letter-spacing: 2px;
-            color: #EF9282;
-            margin: 0;
+        .log {
+            margin: 16px 0 0; padding: 8px 14px; border-radius: 10px; max-width: min(92vw, 520px);
+            background: rgba(255,255,255,.035); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+            font-weight: 500; font-size: 18px; color: var(--mute); overflow-wrap: anywhere;
+            animation: rise .8s .3s var(--ease) both;
+        }
+        .log b { color: #ff6a8a; font-weight: 700 }
+        .log i { color: var(--soft); font-style: normal }
+
+        .home {
+            position: relative; display: inline-block; margin-top: 30px; padding: 12px 30px; border-radius: 14px;
+            background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+            color: var(--ink); font-weight: 600; font-size: 22px; text-decoration: none; overflow: hidden;
+            animation: rise .8s .45s var(--ease) both;
+            transition: transform 220ms var(--ease), background 180ms, box-shadow 180ms;
+        }
+        .home:hover, .home:focus-visible {
+            transform: translateY(-3px); background: rgba(91,46,255,.18);
+            box-shadow: inset 0 0 0 1px var(--violet), 0 10px 30px -8px rgba(91,46,255,.65);
+        }
+        .home .b { display: block; transition: transform .35s var(--ease), opacity .25s }
+        .home .b2 { position: absolute; inset: 12px 0 auto; transform: translateY(160%); opacity: 0 }
+        .home:hover .b1, .home:focus-visible .b1 { transform: translateY(-160%); opacity: 0 }
+        .home:hover .b2, .home:focus-visible .b2 { transform: none; opacity: 1 }
+
+        .hint { margin: 18px 0 0; font-size: 17px; color: #5e5a78; animation: rise .8s .6s var(--ease) both }
+        .count { color: var(--soft) }
+
+        .spark {
+            position: fixed; z-index: 5; width: 10px; height: 10px; background: var(--violet); pointer-events: none;
         }
 
-        .message {
-            font-weight: 600;
-            font-size: 28px;
-            margin-top: 16px;
-            color: #AAA;
+        /* ---- анимации ---- */
+        @keyframes rise { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: none } }
+        @keyframes blink { 50% { opacity: 0 } }
+        @keyframes scan { to { background-position: 0 40px } }
+        @keyframes wobble { 0%,100% { translate: 0 0 } 50% { translate: 0 -8px } }
+        @keyframes glitch-a {
+            0%, 90%, 100% { opacity: 0; transform: none }
+            92% { opacity: 1; transform: translate(-6px, 2px) }
+            95% { opacity: 1; transform: translate(5px, -2px) }
+            97% { opacity: 0 }
         }
-
-        .home-link {
-            display: inline-block;
-            margin-top: 32px;
-            padding: 12px 32px;
-            border-radius: 14px;
-            background: #252525;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
-            color: #EBEBEB;
-            font-family: 'Handjet Circle Double', 'Segoe UI', system-ui;
-            font-weight: 600;
-            font-size: 22px;
-            text-decoration: none;
-            transition: all 180ms cubic-bezier(.2, .7, .2, 1);
+        @keyframes glitch-b {
+            0%, 90%, 100% { opacity: 0; transform: none }
+            93% { opacity: 1; transform: translate(6px, -2px) }
+            96% { opacity: 1; transform: translate(-5px, 2px) }
+            98% { opacity: 0 }
         }
+        @keyframes shake {
+            0%,100% { transform: none } 20% { transform: translateX(-8px) } 40% { transform: translateX(8px) }
+            60% { transform: translateX(-5px) } 80% { transform: translateX(5px) }
+        }
+        .shake { animation: shake .4s }
+        .spin img { animation: spin .8s var(--ease) }
+        @keyframes spin { to { transform: rotate(360deg) scale(1.15) } }
 
-        .home-link:hover {
-            transform: translateY(-2px);
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.08);
-            color: #fff;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important }
+            .scan { display: none }
         }
     </style>
 </head>
 <body>
-    <h1>404</h1>
-    <p class="message">Страница не найдена</p>
-    <a class="home-link" href="/">← На главную</a>
+    <div class="scan" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="stage" id="stage">
+        <h1 class="code" aria-label="404">
+            <span class="digit" data-t="4" aria-hidden="true">4</span>
+            <button class="zero" id="zero" type="button" aria-label="Нажми на плюс">
+                <img src="/static/logo-plus.png" alt="" width="450" height="420" draggable="false">
+            </button>
+            <span class="digit" data-t="4" aria-hidden="true">4</span>
+        </h1>
+
+        <p class="msg" id="msg" aria-live="polite"></p>
+
+        <p class="log">
+            <b>GET</b> <i id="path">/</i> → <b>404</b> · нашлось: ничего
+        </p>
+
+        <a class="home" href="/">
+            <span class="b b1">← На главную</span>
+            <span class="b b2" aria-hidden="true">Утащи меня отсюда</span>
+        </a>
+
+        <p class="hint">Нажми на плюс <span class="count" id="count"></span></p>
+    </main>
+
+    <script>
+        (function () {
+            var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var root = document.documentElement;
+            var $ = function (id) { return document.getElementById(id) };
+
+            // реальный путь из адреса
+            var p = decodeURIComponent(location.pathname + location.search);
+            $('path').textContent = p.length > 60 ? p.slice(0, 57) + '…' : p;
+
+            // печатающаяся строка со случайными фразами
+            var lines = [
+                'Страница не найдена',
+                'Эта страница ушла за мультиваркой',
+                'Тут ничего нет. Проверено дважды',
+                'Кто-то сломал ссылку. Не я',
+                'Ссылка есть, страницы нет',
+                'Плюс есть, страницы нет',
+                'Страница сварилась и пропала'
+            ];
+            var msg = $('msg'), li = 0, ci = 0, del = false, timer;
+            function type() {
+                var s = lines[li];
+                if (reduce) { msg.textContent = s; return; }
+                ci += del ? -1 : 1;
+                msg.textContent = s.slice(0, ci);
+                var wait = del ? 28 : 55;
+                if (!del && ci === s.length) { del = true; wait = 2400; }
+                else if (del && ci === 0) { del = false; li = (li + 1) % lines.length; wait = 350; }
+                timer = setTimeout(type, wait);
+            }
+            type();
+
+            // свечение и наклон плюса за курсором
+            var zero = $('zero'), img = zero.querySelector('img');
+            if (!reduce) {
+                var raf = 0, mx = 0, my = 0;
+                addEventListener('pointermove', function (e) {
+                    mx = e.clientX; my = e.clientY;
+                    if (raf) return;
+                    raf = requestAnimationFrame(function () {
+                        raf = 0;
+                        root.style.setProperty('--mx', mx + 'px');
+                        root.style.setProperty('--my', my + 'px');
+                        var r = zero.getBoundingClientRect();
+                        var dx = (mx - (r.left + r.width / 2)) / innerWidth;
+                        var dy = (my - (r.top + r.height / 2)) / innerHeight;
+                        img.style.setProperty('--ry', Math.max(-1, Math.min(1, dx * 2)) * 28 + 'deg');
+                        img.style.setProperty('--rx', Math.max(-1, Math.min(1, dy * 2)) * -22 + 'deg');
+                    });
+                }, { passive: true });
+            }
+
+            // клик по плюсу: взрыв пикселей, счётчик, пасхалки
+            var clicks = 0, count = $('count'), stage = $('stage');
+            var secrets = {
+                5: 'Хватит.',
+                10: 'Плюс устал',
+                15: 'Ладно, держи ещё пикселей',
+                25: 'Ты точно не ищешь страницу?'
+            };
+            function burst(n) {
+                if (reduce) return;
+                var r = zero.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+                for (var i = 0; i < n; i++) {
+                    var s = document.createElement('i'), size = 5 + Math.random() * 10;
+                    s.className = 'spark';
+                    s.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;width:' + size + 'px;height:' + size + 'px;' +
+                        (Math.random() > .65 ? 'background:#e9e6f5' : Math.random() > .5 ? 'background:#2a2640' : '');
+                    document.body.appendChild(s);
+                    var a = Math.random() * Math.PI * 2, d = 90 + Math.random() * 190;
+                    s.animate([
+                        { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+                        { transform: 'translate(calc(-50% + ' + Math.cos(a) * d + 'px), calc(-50% + ' + (Math.sin(a) * d + 70) + 'px)) scale(.2)', opacity: 0 }
+                    ], { duration: 700 + Math.random() * 500, easing: 'cubic-bezier(.15,.7,.3,1)' })
+                        .onfinish = (function (el) { return function () { el.remove() } })(s);
+                }
+            }
+            zero.addEventListener('click', function () {
+                clicks++;
+                count.textContent = '× ' + clicks;
+                burst(clicks % 5 === 0 ? 46 : 16);
+                if (reduce) return;
+                zero.classList.remove('spin'); void zero.offsetWidth; zero.classList.add('spin');
+                if (clicks % 10 === 0) { stage.classList.remove('shake'); void stage.offsetWidth; stage.classList.add('shake'); }
+                if (secrets[clicks]) {
+                    clearTimeout(timer); del = false; ci = 0;
+                    lines.unshift(secrets[clicks]); li = 0; type();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
