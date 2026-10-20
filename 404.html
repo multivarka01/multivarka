@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="ru">
 <head>
+    <script>document.write('<base href="'+(location.hostname.slice(-9)==="github.io"?"/"+location.pathname.split("/")[1]+"/":"/")+'">')</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <title>404 — Страница не найдена</title>
     <meta name="theme-color" content="#050409">
     <meta name="robots" content="noindex">
-    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <link rel="icon" href="static/favicon.png" type="image/png">
     <style>
         @font-face {
             font-family: 'Handjet Circle Double';
             font-weight: 100 900;
             font-display: swap;
-            src: url('/static/HandjetCircleDouble.woff2') format('woff2');
+            src: url('static/HandjetCircleDouble.woff2') format('woff2');
         }
 
         :root {
@@ -154,7 +155,7 @@
         <h1 class="code" aria-label="404">
             <span class="digit" data-t="4" aria-hidden="true">4</span>
             <button class="zero" id="zero" type="button" aria-label="Нажми на плюс">
-                <img src="/static/logo-plus.png" alt="" width="450" height="420" draggable="false">
+                <img src="static/logo-plus.png" alt="" width="450" height="420" draggable="false">
             </button>
             <span class="digit" data-t="4" aria-hidden="true">4</span>
         </h1>
@@ -165,7 +166,7 @@
             <b>GET</b> <i id="path">/</i> → <b>404</b> · нашлось: ничего
         </p>
 
-        <a class="home" href="/">
+        <a class="home" href=".">
             <span class="b b1">← На главную</span>
             <span class="b b2" aria-hidden="true">Утащи меня отсюда</span>
         </a>
