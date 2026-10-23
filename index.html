@@ -3,20 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="google-site-verification" content="ZqDwBxwVcPz3IrlgQc-BwMS_tcV477uVixQK9nsIKTI" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="application-name" content="MULTIVARKA">
+    <meta name="apple-mobile-web-app-title" content="MULTIVARKA">
+    <meta name="color-scheme" content="dark">
+    <meta name="language" content="ru">
+    <link rel="apple-touch-icon" href="static/favicon.png">
+    <link rel="canonical" href="https://multivarka01.github.io/multivarka/">
+
     <title>MULTIVARKA</title>
-    <meta name="description" content="Themultivarka socials">
-    <meta name="keywords" content="multivarka, themultivarka, mvrk">
+    <meta name="description" content="MULTIVARKA (MVRK) — Themultivarka: стример и автор проектов. Twitch, Telegram, YouTube, Steam и GitHub — все ссылки в одном месте.">
+    <meta name="keywords" content="multivarka, мультиварка, themultivarka, mvrk, мврк, multivarka01, multicooker, twitch, стример, telegram, youtube, steam, github, соцсети, ссылки">
     <meta name="author" content="Themultivarka">
     <meta name="theme-color" content="#050409">
 
     <meta property="og:title" content="MULTIVARKA">
-    <meta property="og:description" content="projects and social media links.">
+    <meta property="og:description" content="Themultivarka — Twitch, Telegram, YouTube, Steam и GitHub в одном месте.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://multivarka01.github.io/multivarka/">
+    <meta property="og:image" content="https://multivarka01.github.io/multivarka/static/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MVRK — логотип Themultivarka">
     <meta property="og:site_name" content="MULTIVARKA">
     <meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://multivarka01.github.io/multivarka/static/og-image.png">
     <meta name="twitter:title" content="MULTIVARKA">
-    <meta name="twitter:description" content="projects and social media links.">
+    <meta name="twitter:description" content="Themultivarka — Twitch, Telegram, YouTube, Steam и GitHub в одном месте.">
 
     <link rel="icon" href="static/favicon.png" type="image/png">
     <link rel="preload" href="static/HandjetCircleDouble.woff2" as="font" type="font/woff2" crossorigin>
@@ -24,6 +40,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "url": "https://multivarka01.github.io/multivarka/",
+        "name": "Themultivarka",
+        "alternateName": ["MULTIVARKA", "MVRK", "multivarka01"],
+        "description": "Стример и автор проектов. Все соцсети в одном месте.",
+        "sameAs": [
+            "https://twitch.tv/themultivarka",
+            "https://t.me/multicooker",
+            "https://youtube.com/@themultivarka",
+            "https://steamcommunity.com/profiles/76561199707898172/",
+            "https://github.com/multivarka01"
+        ]
+    }
+    </script>
 
     <style>
         @font-face {
@@ -73,7 +107,6 @@
             overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
         }
 
-        /* ---------- фон ---------- */
         .glow {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             background:
@@ -101,14 +134,12 @@
             opacity: 0; animation: px-float var(--d, 9s) var(--delay, 0s) ease-in-out infinite;
         }
 
-        /* ---------- сцена ---------- */
         .stage {
             position: relative; z-index: 1;
             display: flex; flex-direction: column; align-items: center;
             width: min(100%, 560px);
         }
 
-        /* 3D-плюс из слоёв */
         .hero { position: relative; width: var(--s); height: var(--s); animation: drop 1.1s .1s var(--ease) both }
 
         .halo {
@@ -143,7 +174,6 @@
         }
         .spark.dim { background: #2a2640 }
 
-        /* вордмарк — живой текст */
         .word {
             display: flex; gap: .04em; margin: 26px 0 0;
             font-family: 'Syncopate', 'Arial Black', Impact, sans-serif; font-weight: 700;
@@ -233,7 +263,6 @@
         }
 
 
-        /* ---------- наполнение пустых зон ---------- */
         .dots {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background-image: radial-gradient(rgba(255, 255, 255, .22) 1px, transparent 1.3px);
@@ -390,14 +419,12 @@
             var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
             var root = document.documentElement;
 
-            // спойлер возраста
             var sp = document.querySelector('.spoiler');
             sp.addEventListener('click', function () {
                 sp.classList.toggle('revealed');
                 sp.setAttribute('aria-label', sp.classList.contains('revealed') ? 'Скрыть возраст' : 'Показать возраст');
             });
 
-            // 3D-плюс: стопка слоёв по глубине
             var obj = document.getElementById('obj'), N = 16, STEP = 1.7;
             for (var i = N - 1; i >= 0; i--) {
                 var l = document.createElement('div');
@@ -410,7 +437,6 @@
                 obj.appendChild(l);
             }
 
-            // пиксели-искры на фоне
             var box = document.getElementById('pixels');
             if (!reduce) {
                 for (var j = 0; j < 26; j++) {
@@ -423,7 +449,6 @@
                 }
             }
 
-            // клик по плюсу — оборот на 360°
             var scene = document.getElementById('scene');
             scene.addEventListener('click', function () {
                 obj.classList.remove('spin'); void obj.offsetWidth; obj.classList.add('spin');
@@ -432,14 +457,12 @@
                 if (e.animationName === 'spin') obj.classList.remove('spin');
             });
 
-            // часы в HUD
             var clk = document.getElementById('clock');
             function tick() { clk.textContent = new Date().toLocaleTimeString('ru-RU', { hour12: false }) }
             tick(); setInterval(tick, 1000);
 
             if (reduce) return;
 
-            // свечение за курсором + наклон плюса
             var tilt = document.getElementById('tilt'), hero = document.getElementById('hero');
             var hx = document.getElementById('hx'), hy = document.getElementById('hy');
             var raf = 0, mx = 0, my = 0, lx = -99, ly = -99;
