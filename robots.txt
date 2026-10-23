@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://multivarka01.github.io/multivarka/sitemap.xml
